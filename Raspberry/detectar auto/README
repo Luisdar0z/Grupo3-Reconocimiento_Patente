@@ -1,0 +1,4 @@
+tener instalado cv2
+
+pip install opencv-python
+http://ironsistem.com/tutoriales/python/deteccion-facial-en-python-y-opencv/
