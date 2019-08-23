@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<br/>
+	<h1>Patentes Registradas</h1>
+	<div class="container">
+		<div class="row mt-5 justify-content-center">
+		{% for vehiculo in vehiculos %}
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">{{ vehiculo.nombrePersona }}</h5>
+					<p class="card-text">{{ vehiculo.patente }}</p>
+					<a href="/patentes/{{ vehiculo.rut }}/" class="btn btn-outline-dark">Ver detalle del vehículo</a>
+				</div>
+			</div>
+		{% endfor %}
+		</div>
+		<br/>
+		<div style="text-align:center"><a class="btn btn-lg btn-info" href="/patentes/create/" role="button" style="text-align: center">Agregar Nuevo Vehículo</a></div><br/><br/>
+	</div>
+{% endblock %}

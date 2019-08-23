@@ -1,0 +1,34 @@
+h1 {
+	color: #008080
+}
+
+h2 {
+	color: black
+}
+
+a {
+	color: #7ABF7D;
+}
+
+a:hover {
+	color: #A7E5AA;
+}
+
+.footer-full{
+	position: relative;
+	left: 0;
+	width:100%;
+}
+
+.tooltip-inner{
+    padding:6px 7px;
+    color:#912F00;
+    text-align:center;
+    font-weight:900;
+    background: -webkit-gradient(linear, left top, left 25, from(#FFEEE6), color-stop(4%, #FFEEE6), to(#FFEEE6));
+    background: -moz-linear-gradient(top, #F4F4F4, #B4C8D6 1px, #F4F4F4 25px);
+    border: 1px solid #912F00;
+    -webkit-border-radius:9px;
+    -moz-border-radius:9px;
+    border-radius:4px;   
+}

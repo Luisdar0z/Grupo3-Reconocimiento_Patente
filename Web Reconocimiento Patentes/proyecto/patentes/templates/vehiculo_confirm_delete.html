@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="jumbotron">
+	<h1 class="display-4">Confirmar eliminación del vehículo</h1>
+	<hr class="my-4">
+		<table class="table">
+		<tr>
+			<td>Nombre Persona</td>
+			<td>{{ vehiculo.nombrePersona }}</td>
+		</tr>
+		<tr>
+			<td>Patente</td>
+			<td>{{ vehiculo.patente }}</td>
+		</tr>
+		<tr>
+			<td>RUT</td>
+			<td>{{ vehiculo.rut }}</td>
+		</tr>
+		<tr>
+			<td>Departamento Asociado</td>
+			<td>{{ vehiculo.deptoAsociado }}</td>
+		</tr>
+		<tr>
+			<td>Estacionamiento</td>
+			<td>{{ vehiculo.estacionamiento }}</td>
+		</tr>
+		<tr>
+			<td>E-Mail Contacto</td>
+			<td>{{ vehiculo.email }}</td>
+		</tr>
+		<tr>
+			<td>Teléfono Contacto</td>
+			<td>{{ vehiculo.telefono }}</td>
+		</tr>
+		</table>
+	<p>¿Desea borrar el vehículo?</p>
+	<form action="" method="POST">
+		{% csrf_token %}
+		<button type="submit" class="btn btn-danger">Confirmar borrado</button>
+	</form>
+</div>
+
+{% endblock %}

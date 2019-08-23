@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block content %}
+	<br/>
+	<h1>Información del Vehículo</h1>
+	<div class="jumbotron">
+		<h1 class="display-4">{{ vehiculo.nombrePersona }}</h1>
+		<p class="lead" style="font-weight: bold">{{ vehiculo.patente }}</p>
+		<hr class="my-4">
+			<table class="table">
+				<tr>
+					<td>RUT</td>
+					<td>{{ vehiculo.rut }}</td>
+				</tr>
+				<tr>
+					<td>Departamento Asociado</td>
+					<td>{{ vehiculo.deptoAsociado }}</td>
+				</tr>
+				<tr>
+					<td>Estacionamiento</td>
+					<td>{{ vehiculo.estacionamiento }}</td>
+				</tr>
+				<tr>
+					<td>E-Mail Contacto</td>
+					<td>{{ vehiculo.email }}</td>
+				</tr>
+				<tr>
+					<td>Teléfono Contacto</td>
+					<td>{{ vehiculo.telefono }}</td>
+				</tr>
+			</table>
+			<br/>
+			<a class="btn btn-info btn-lg" href="/patentes/{{ vehiculo.id }}/update/" role="button">Modificar</a>
+			<a class="btn btn-danger btn-lg" href="/patentes/{{ vehiculo.id }}/delete/" role="button">Eliminar</a>
+			<a class="btn btn-lg btn-outline-dark" href="/patentes/" role="button">Volver</a>
+	</div>
+
+{% endblock %}
