@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br/>
+<h1>Buscar vehículo</h1>
+<br/>
+<div class="container" style="width: 28rem;">
+	<p style="margin-left:11px;"><b>Nota:</b> Ingresar valores en cualquiera de estos campos.</p>
+	<form action="/patentes/search/results/" method="post">
+		{% csrf_token %}
+			<table class="table table-borderless">
+				<tr>
+					<td>Nombre Persona</td>
+					<td><input style="width:100%" name="nombrePersona" data-toggle="tooltip" data-placement="right" title="Ingresar nombre completo"></input></td>
+				</tr>
+				<tr>
+					<td>Patente</td>
+					<td><input style="width:100%" name="patente"></input></td>
+				</tr>
+				<tr>
+					<td>Estacionamiento</td>
+					<td><input style="width:100%" name="estacionamiento"></input></td>
+				</tr>
+				<tr>
+					<td>Departamento Asociado</td>
+					<td><input style="width:100%" name="deptoAsociado"></input></td>
+				</tr>
+				<tr>
+					<td>RUT</td>
+					<td><input style="width:100%" name="rut" data-toggle="tooltip" data-html="true" data-placement="right" title="Ingresar RUT sin puntos ni guión"></input></td>
+				</tr>
+				<tr>
+					<td colspan="2">
+						<button type="submit" class="btn btn-lg btn-info btn-block">Buscar</button>
+					</td>
+				</td>
+			</table>
+	</form>
+</div>
+{% endblock %}
