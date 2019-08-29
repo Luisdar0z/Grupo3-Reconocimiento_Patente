@@ -2,10 +2,7 @@
 def Espacio(cadena):
     global patente
     cont = 0 #obtiene cantidad de espacios
-    for i in range(len(cadena)):
-        if cadena[i] == ' ':
-            cont += 1
-    if cont == 2:
+    if (cadena[2] == ' ') and (cadena[5] == ' '):
         patente = cadena
 
 def Cadenas(split_word):

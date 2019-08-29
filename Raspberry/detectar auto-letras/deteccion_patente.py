@@ -4,20 +4,22 @@ client = vision.ImageAnnotatorClient()
 
 patente = "" #obtendra la patente del vehiculo
 
-def Espacio(_text):
+def EspacioAuto(_text):
     global patente
-    cont = 0 #obtiene cantidad de espacios
-    for i in range(len(_text)):
-        if _text[i] == ' ':
-            cont += 1
-    if cont == 2:
+    if ((cadena[2] == ' ') or (cadena[2] == '.')) and ((cadena[5] == ' ') or (cadena[5] == '-')):
+        patente = _text
+
+def EspacioMoto(_text):
+    global patente
+    if cadena[3] == ' ' or cadena[3] == '-' or cadena[3] == '.':
         patente = _text
 
 def Cadenas(split_word):
     for i in range(len(split_word)):
         if len(split_word[i]) == 8:
-            Espacio(split_word[i])
-
+            EspacioAuto(split_word[i])
+        elif len(split_word[i]) == 6:
+            EspacioMoto(split_word[i])
 
 
 def detect_text(path):
@@ -31,11 +33,8 @@ def detect_text(path):
     for text in texts:
         texto = text.description
         words = texto.split('\n', 15) #(caracter para split, cantidad maxima de split)
-        Cadenas(words)
-        #print('\n"{}"'.format(text.description))
-        #print(text.description)
-        #Limpieza(text.description)
-               
-    
+        Cadenas(words)            
     print(patente)
+
+
 detect_text('ej2-0014.jpg')
