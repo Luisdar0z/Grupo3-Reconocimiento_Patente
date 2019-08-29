@@ -1,3 +1,3 @@
 "# Grupo3-Reconocimiento_Patente" 
 
-Link Trello: https://trello.com/b/EcQMN7pE
+Link trello: <a href= "https://trello.com/b/RZev8yz1" target="_blank">https://trello.com/b/RZev8yz1</a>
