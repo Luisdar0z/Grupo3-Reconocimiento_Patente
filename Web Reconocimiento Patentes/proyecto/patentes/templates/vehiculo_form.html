@@ -17,6 +17,16 @@
 					<td><input style="width:100%" name="patente"></input></td>
 				</tr>
 				<tr>
+					<td>Tipo</td>
+					<td>
+						<select name="tipo" class="form-control">
+    						<option value="Residente" selected>Residente</option>
+    						<option value="Visita">Visita</option>
+    						<option value="Servicios">Servicios</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
 					<td>Estacionamiento</td>
 					<td><input style="width:100%" name="estacionamiento"></input></td>
 				</tr>
@@ -40,12 +50,14 @@
 					<td>Teléfono</td>
 					<td><input style="width:100%" name="telefono"></input></td>
 				</tr>
-				<tr>
-					<td colspan="2">
-						<button type="submit" class="btn btn-lg btn-info btn-block">Guardar</button>
-					</td>
-				</td>
 			</table>
+		<div style="text-align:center;">
+			<a class="btn btn-lg btn-outline-dark" href="/" role="button">Volver al inicio</a>
+			<button type="submit" class="btn btn-lg btn-info">Guardar</button>
+		</div>
+		<br/>
+		<br/>
 	</form>
+	
 </div>
 {% endblock %}

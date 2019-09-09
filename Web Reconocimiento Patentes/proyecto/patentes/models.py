@@ -1,9 +1,11 @@
 from django.db import models
 
+
 # Create your models here.
 class Vehiculo(models.Model):
 	nombrePersona = models.CharField(max_length=28)
 	patente = models.CharField(max_length=7)
+	tipo = models.CharField(max_length=9)
 	estacionamiento = models.CharField(max_length=10)
 	deptoAsociado = models.CharField(max_length=10)
 	estado = models.CharField(max_length=10)
