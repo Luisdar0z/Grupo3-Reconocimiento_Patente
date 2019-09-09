@@ -1,6 +1,6 @@
 # WebReconocimientoPatentes
 
-<h3>Entrega 1:</h3>
+<h3>Entrega (Software I)</h3>
 <ul>
 	<li>Login y registro</li>
 	<li>Mostrar patentes registradas y detalle</li>
@@ -8,6 +8,17 @@
 	<li>Modificar vehículo</li>
 	<li>Eliminar vehículo</li>
 	<li>Buscar vehículo</li>
+</ul>
+
+<h3>Entrega 1 (Software II)</h3>
+<ul>
+	<li>API Registro de Ingresos e integración con App Web</li>
+	<li>Reconocimiento de patentes con API Google Vision (sin integrar a app web)</li>
+	<ul>
+		<li>Conexión con API Google Vision</li>
+		<li>Limpieza de los datos resultantes (obtener sólo letras y números de patentes)</li>
+	</ul>
+	<li>Automatización del comando curl para registro en API</li>
 </ul>
 
 <h2>Ejecución:</h2>
