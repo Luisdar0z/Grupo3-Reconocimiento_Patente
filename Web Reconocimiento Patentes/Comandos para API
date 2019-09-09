@@ -35,8 +35,8 @@ curl -X GET --header "Authorization: Token 01c8574a530b397e9b20108271b82d3bf8c18
 AGREGAR NUEVOS DATOS
 --------------------
 
-curl -X POST -H 'Content-Type:application/json' --header "Authorization: Token token_generado" http://localhost:8000/apiregistro/ -d '{"campo1_string":"valor","campo2_string":"valor","campo3_numerico":valor}'
+curl -X POST -H 'Content-Type:application/json' --header "Authorization: Token token_generado" http://localhost:8000/apiregistro/ -d '{"campo1_numerico":valor,"campo2_string":"valor","campo3_numerico":valor,"campo4_numerico":valor,"campo5_numerico":valor}'
 
 Ejemplo:
 
-curl -X POST -H 'Content-Type:application/json' --header "Authorization: Token 01c8574a530b397e9b20108271b82d3bf8c18906" http://localhost:8000/apiregistro/ -d '{"sigla":"ICF122","nombre":"Fundamentos de Programación","creditos":6}'
+curl -X POST -H 'Content-Type:application/json' --header "Authorization: Token 01c8574a530b397e9b20108271b82d3bf8c18906" http://localhost:8000/apiregistro/ -d '{"vehiculo":4,"hora":"14:00","day":16,"month":10,"year":2019}'
