@@ -4,6 +4,7 @@
 <br/>
 <h1>Modificar vehículo</h1>
 <br/>
+
 <div class="container" style="width: 28rem;">
 	<p style="margin-left: 11px;"><b>Nota:</b> Ingresar nombre completo y RUT sin puntos ni guión</p>
 	<form action="" method="post">
@@ -12,10 +13,13 @@
 				{{ form.as_table }}
 				<tr>
 					<td colspan="2">
-						<button type="submit" class="btn btn-lg btn-info btn-block">Guardar</button>
+						<div style="text-align:center;">
+							<a class="btn btn-lg btn-outline-dark" href="/" role="button">Volver al inicio</a>
+							<button type="submit" class="btn btn-lg btn-info">Guardar</button>
 					</td>
 				</td>
 			</table>
 	</form>
 </div>
+
 {% endblock %}

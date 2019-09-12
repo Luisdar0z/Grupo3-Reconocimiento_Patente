@@ -43,13 +43,17 @@ class VehiculoSearchView(LoginRequiredMixin, TemplateView):
 	def post(self, request, **kwargs):
 		nombrePersona=''
 		patente=''
+		tipo=''
 		estacionamiento=''
 		deptoAsociado=''
 		rut=''
+		
 		if "nombrePersona" in request.POST.keys():
 			nombrePersona = request.POST["nombrePersona"]
 		if "patente" in request.POST.keys():
 			patente = request.POST["patente"]
+		if "tipo" in request.POST.keys():
+			tipo = request.POST["tipo"]
 		if "estacionamiento" in request.POST.keys():
 			estacionamiento = request.POST["estacionamiento"]
 		if "deptoAsociado" in request.POST.keys():
@@ -65,6 +69,11 @@ class VehiculoSearchView(LoginRequiredMixin, TemplateView):
 		elif (patente != ''):
 			resultado = Vehiculo.vehiculos.get(patente=patente)
 			vehiculosResultados.append(resultado)
+		elif (tipo != ''):
+			_vehiculos = Vehiculo.vehiculos.all()
+			for i in _vehiculos:
+				if (i.tipo==tipo):
+					vehiculosResultados.append(i)
 		elif (estacionamiento != ''):
 			resultado = Vehiculo.vehiculos.get(estacionamiento=estacionamiento)
 			vehiculosResultados.append(resultado)
@@ -72,7 +81,21 @@ class VehiculoSearchView(LoginRequiredMixin, TemplateView):
 			resultado = Vehiculo.vehiculos.get(deptoAsociado=deptoAsociado)
 			vehiculosResultados.append(resultado)
 		elif (rut != ''):
-			print(Vehiculo.vehiculos.get(rut=rut))
 			resultado = Vehiculo.vehiculos.get(rut=rut)
 			vehiculosResultados.append(resultado)
+		
 		return render(request, 'vehiculos_results.html', {'vehiculos': vehiculosResultados})
+	
+class VehiculoReconocimiento(LoginRequiredMixin, TemplateView):
+	def Reconocimiento(self, request, **kwargs):
+		f = open("reconocimiento", "r")
+		_patente = f.read()
+		print(_patente)
+		f.close()
+		vehiculoDetectado = []
+		resultado = Vehiculo.vehiculos.get(patente=_patente)
+		vehiculoDetectado.append(resultado)
+				
+		print(vehiculoDetectado)
+		
+		return render(request, 'vehiculo_reconocimiento.html', {'vehiculos': vehiculoDetectado})

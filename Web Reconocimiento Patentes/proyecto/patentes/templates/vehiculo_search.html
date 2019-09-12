@@ -18,6 +18,16 @@
 					<td><input style="width:100%" name="patente"></input></td>
 				</tr>
 				<tr>
+					<td>Tipo</td>
+					<td>
+						<select name="tipo" class="form-control">
+    						<option value="Residente" selected>Residente</option>
+    						<option value="Visita">Visita</option>
+    						<option value="Servicios">Servicios</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
 					<td>Estacionamiento</td>
 					<td><input style="width:100%" name="estacionamiento"></input></td>
 				</tr>
@@ -29,12 +39,13 @@
 					<td>RUT</td>
 					<td><input style="width:100%" name="rut" data-toggle="tooltip" data-html="true" data-placement="right" title="Ingresar RUT sin puntos ni guión"></input></td>
 				</tr>
-				<tr>
-					<td colspan="2">
-						<button type="submit" class="btn btn-lg btn-info btn-block">Buscar</button>
-					</td>
-				</td>
 			</table>
-	</form>
+		<div style="text-align:center;">
+			<a class="btn btn-lg btn-outline-dark" href="/" role="button">Volver al inicio</a>
+			<button type="submit" class="btn btn-lg btn-info">Buscar</button>
+		</div>
+		<br/>
+		<br/>
+	</form>	
 </div>
 {% endblock %}
