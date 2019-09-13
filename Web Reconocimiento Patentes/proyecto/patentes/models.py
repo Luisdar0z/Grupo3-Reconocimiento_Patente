@@ -5,7 +5,7 @@ from django.db import models
 class Vehiculo(models.Model):
 	nombrePersona = models.CharField(max_length=28)
 	patente = models.CharField(max_length=7)
-	tipo = models.CharField(max_length=9)
+	tipo = models.CharField(max_length=9,choices=[('Residente','Residente'),('Visita','Visita'),('Servicios','Servicios')],default='Residente')
 	estacionamiento = models.CharField(max_length=10)
 	deptoAsociado = models.CharField(max_length=10)
 	estado = models.CharField(max_length=10)
@@ -16,7 +16,7 @@ class Vehiculo(models.Model):
 		
 	def __str__(self):
 		return "{}".format(self.nombrePersona)
-		
+	
 class VehiculoFactory:
 	def __init__(self):
 		self.vehiculos = []

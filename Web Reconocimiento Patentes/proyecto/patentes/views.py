@@ -24,10 +24,24 @@ class VehiculoCreate(CreateView):
 	template_name = './vehiculo_form.html'
 	fields = '__all__'
 	
+	def myView(request):
+		form = myForm(request.POST or None)
+		if request.method == 'POST':
+			if form.is_valid():
+				return HttpResponseRedirect('/gracias/')
+		return render_to_response('vehiculo_form.html', {'form': form})
+	
 class VehiculoUpdate(UpdateView):
 	model = Vehiculo
 	template_name = './vehiculo_update.html'
-	fields = ['nombrePersona', 'patente', 'estacionamiento', 'deptoAsociado', 'estado', 'rut', 'email', 'telefono']
+	fields = ['nombrePersona', 'patente', 'tipo', 'estacionamiento', 'deptoAsociado', 'estado', 'rut', 'email', 'telefono']
+	
+	def myView(request):
+		form = myForm(request.POST or None)
+		if request.method == 'POST':
+			if form.is_valid():
+				return HttpResponseRedirect('/gracias/')
+		return render_to_response('vehiculo_update.html', {'form': form})
 	
 class VehiculoDelete(DeleteView):
 	model = Vehiculo
@@ -37,7 +51,7 @@ class VehiculoDelete(DeleteView):
 class VehiculoSearch(TemplateView):
 	model = Vehiculo
 	template_name = './vehiculo_search.html'
-	fields = ['nombrePersona', 'patente', 'estacionamiento', 'deptoAsociado', 'estado', 'rut', 'email', 'telefono']
+	fields = ['nombrePersona', 'patente', 'tipo', 'estacionamiento', 'deptoAsociado', 'estado', 'rut', 'email', 'telefono']
 	
 class VehiculoSearchView(LoginRequiredMixin, TemplateView):
 	def post(self, request, **kwargs):
@@ -86,16 +100,7 @@ class VehiculoSearchView(LoginRequiredMixin, TemplateView):
 		
 		return render(request, 'vehiculos_results.html', {'vehiculos': vehiculosResultados})
 	
-class VehiculoReconocimiento(LoginRequiredMixin, TemplateView):
-	def Reconocimiento(self, request, **kwargs):
-		f = open("reconocimiento", "r")
-		_patente = f.read()
-		print(_patente)
-		f.close()
-		vehiculoDetectado = []
-		resultado = Vehiculo.vehiculos.get(patente=_patente)
-		vehiculoDetectado.append(resultado)
-				
-		print(vehiculoDetectado)
-		
-		return render(request, 'vehiculo_reconocimiento.html', {'vehiculos': vehiculoDetectado})
+#class VehiculoReconocimiento(LoginRequiredMixin, TemplateView):
+	#def Reconocimiento(self, request, **kwargs):
+		#p=Vehiculo.objects.raw(query)
+		#return render(request, 'vehiculo_reconocimiento.html', {'vehiculos': p})

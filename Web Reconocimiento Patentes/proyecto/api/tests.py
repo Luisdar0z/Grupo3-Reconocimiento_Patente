@@ -3,16 +3,18 @@ from django.test import TestCase
 from .models import RegistroVehiculos
 from rest_framework.test import APIClient
 from rest_framework import status
+from django.test import Client
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 class RegistroVehiculosTestCase(TestCase):
 	"""Esta clase define la testsuite para el Vehiculo"""
 
 	def setUp(self):
-		"""Definicion de variables generales"""
-		self.vehiculo = 1
-		self.hora = "14:00"
-		self.day = 12
+		"""Definicion de variables generales"""		
+		self.vehiculo = 4
+		self.hora = "17:02"
+		self.day = 18
 		self.month = 9
 		self.year = 2019
 		self.registrovehiculos = RegistroVehiculos(
@@ -20,7 +22,7 @@ class RegistroVehiculosTestCase(TestCase):
 			hora=self.hora,
 			day=self.day,
 			month=self.month,
-			year=self.year,
+			year=self.year
 		)
 		
 	def test_creacion_de_vehiculo(self):
@@ -35,14 +37,14 @@ class ViewTestCase(TestCase):
 
 	def setUp(self):
 		"""Definicion de variables generales"""
+		self.user=User.objects.create_superuser('servidor', 'api@servidor.com', "Secret.123")
+		c = Client()
+		response = c.post('/api/login', {'username':'servidor', 'password':'Secret.123'})
+		self.token = response.json()["token"]
 		self.client = APIClient()
-		registro_vehiculos_data = {
-			'vehiculo':1,
-			'hora':'14:00',
-			'day':12,
-			'month':9,
-			'year':2019
-		}
+		self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
+		
+		registro_vehiculos_data = {'vehiculo':4,'hora':'17:02','day':18,'month':9,'year':2019}
 		self.response_setup = self.client.post(
 			reverse('create'),
 			registro_vehiculos_data,
@@ -60,7 +62,7 @@ class ViewTestCase(TestCase):
 			kwargs={'pk': registro_vehiculos.id}), format="json")
 
 		self.assertEqual(response.status_code, status.HTTP_200_OK)
-		self.assertContains(response, vehiculo)
+		self.assertContains(response, registro_vehiculos)
 		
 	def test_api_actualizar_vehiculo(self):
 		"""Test de actualización de vehiculo a través de la API."""

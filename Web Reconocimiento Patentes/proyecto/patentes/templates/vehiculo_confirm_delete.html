@@ -15,6 +15,10 @@
 			<td>{{ vehiculo.patente }}</td>
 		</tr>
 		<tr>
+			<td>Tipo</td>
+			<td>{{ vehiculo.tipo }}</td>
+		</tr>
+		<tr>
 			<td>RUT</td>
 			<td>{{ vehiculo.rut }}</td>
 		</tr>
@@ -35,10 +39,11 @@
 			<td>{{ vehiculo.telefono }}</td>
 		</tr>
 		</table>
-	<p>¿Desea borrar el vehículo?</p>
+	<strong><p>¿Desea borrar el vehículo?</p></strong>
 	<form action="" method="POST">
 		{% csrf_token %}
-		<button type="submit" class="btn btn-danger">Confirmar borrado</button>
+		<a class="btn btn-lg btn-outline-dark" href="/patentes/" role="button">Volver atrás</a>
+		<button type="submit" class="btn btn-lg btn-danger">Confirmar borrado</button>
 	</form>
 </div>
 
