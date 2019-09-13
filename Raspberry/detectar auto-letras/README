@@ -2,3 +2,12 @@ tener instalado cv2
 
 pip install opencv-python
 http://ironsistem.com/tutoriales/python/deteccion-facial-en-python-y-opencv/
+
+tener instalado requests
+pip install requests
+
+en caso de error:
+ERROR: Can not perform a '--user' install. User site-packages are not visible in this virtualenv.
+para arreglar 
+nano /etc/pip.config
+cambiar a user = false
