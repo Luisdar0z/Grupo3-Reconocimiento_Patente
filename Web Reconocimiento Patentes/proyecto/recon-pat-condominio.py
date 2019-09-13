@@ -1,6 +1,6 @@
 import sqlite3
 
-patente_rec ="\"DTRC-78\""
+patente_rec ="\"ASDF-34\""
 
 def Recon(text_):
 	conn = sqlite3.connect("db.sqlite3")
