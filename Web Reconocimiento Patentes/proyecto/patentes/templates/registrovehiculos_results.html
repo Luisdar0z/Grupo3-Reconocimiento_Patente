@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br/>
+<h1>Registros de ingresos resultantes</h1>
+<div class="container">
+	<div class="row mt-5 justify-content-center" id="dvData">
+		{% csrf_token %}
+			<table class="table table-hover">
+				<thead class="thead-dark">
+					<tr>
+						<th>Nombre Persona</th>
+						<th>Fecha</th>
+						<th>Hora</th>
+					</tr>
+				</thead>
+				<tbody>
+				{% for vehiculo in vehiculos|slice:":1" %}
+				{% for registro_vehiculo in registro_vehiculos %}
+					<tr>
+						<td>{{ vehiculo.nombrePersona }}</td>
+						<td>{{ registro_vehiculo.fecha }}</td>
+						<td>{{ registro_vehiculo.hora }}</td>
+					</tr>
+				</tbody>
+				{% endfor %}
+				{% endfor %}
+			</table>
+	</div>
+	<div style="text-align:center;">
+		<a class="btn btn-lg btn-outline-dark" href="/" role="button">Volver al inicio</a>
+		<a class="btn btn-lg btn-info">Descargar tabla como archivo Excel</a>
+	</div>
+	<br/>
+</div>
+
+{% endblock %}

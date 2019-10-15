@@ -14,15 +14,13 @@ class RegistroVehiculosTestCase(TestCase):
 		"""Definicion de variables generales"""		
 		self.vehiculo = 4
 		self.hora = "17:02"
-		self.day = 18
-		self.month = 9
-		self.year = 2019
+		self.fecha = "2019/09/18"
+		self.visto = "false"
 		self.registrovehiculos = RegistroVehiculos(
 			vehiculo=self.vehiculo,
 			hora=self.hora,
-			day=self.day,
-			month=self.month,
-			year=self.year
+			fecha=self.fecha
+			visto=self.visto
 		)
 		
 	def test_creacion_de_vehiculo(self):
@@ -44,7 +42,7 @@ class ViewTestCase(TestCase):
 		self.client = APIClient()
 		self.client.credentials(HTTP_AUTHORIZATION='Token ' + self.token)
 		
-		registro_vehiculos_data = {'vehiculo':4,'hora':'17:02','day':18,'month':9,'year':2019}
+		registro_vehiculos_data = {'vehiculo':4,'hora':'17:02','fecha':'2019/09/18', 'visto': 'false'}
 		self.response_setup = self.client.post(
 			reverse('create'),
 			registro_vehiculos_data,
@@ -67,7 +65,7 @@ class ViewTestCase(TestCase):
 	def test_api_actualizar_vehiculo(self):
 		"""Test de actualización de vehiculo a través de la API."""
 		registro_vehiculos = RegistroVehiculos.objects.get()
-		actualizacion_vehiculo = {'day':12}
+		actualizacion_vehiculo = {'visto': 'true'}
 		res = self.client.patch(
 			reverse('details', kwargs={'pk': registro_vehiculos.id}),
 			actualizacion_vehiculo, format='json'

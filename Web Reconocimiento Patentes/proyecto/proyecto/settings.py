@@ -69,7 +69,7 @@ ROOT_URLCONF = 'proyecto.urls'
 TEMPLATES = [
     {
 		'BACKEND': 'django.template.backends.django.DjangoTemplates',
-		'DIRS': [],
+		'DIRS': [BASE_DIR+"/patentes/templates"],
 		'APP_DIRS': True,
 		'OPTIONS': {
 			'context_processors': [
@@ -138,3 +138,4 @@ LOGIN_REDIRECT_URL = 'index'
 
 LOGOUT_REDIRECT_URL = 'index'
 
+DATE_INPUT_FORMATS = ['%d-%m-%Y']

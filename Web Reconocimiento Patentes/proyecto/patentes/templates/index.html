@@ -13,28 +13,13 @@
 		<a class="btn btn-lg btn-info" href="/patentes">Ver listado de patentes registradas</a><br/><br/>
 		<a class="btn btn-lg btn-info" href="/patentes/create">Agregar nuevo vehículo</a><br/><br/>
 		<a class="btn btn-lg btn-info" href="/patentes/search">Buscar vehículo</a><br/><br/>
+		<a class="btn btn-lg btn-info" href="/patentes/registros">Ver Registros de Ingreso</a><br/><br/>
 		<!--<a class="btn btn-lg btn-outline-dark" href="{% url 'logout' %}">Cerrar sesión</a><br/><br/>-->
+	<br/>
+	<br/>
 	</div>
 	<div class="col-sm-8">
-		<h2>App Reconocimiento</h2>
-		<p></p>
-		
-		<!---poner un iframe--->
-		
-		<!-- mostrar tarjeta de vehiculo reconocido -->
-		<!-- <div class="container">
-				<div class="row mt-5 justify-content-center">
-				{% for vehiculo in vehiculos %}
-				<div class="card" style="width: 18rem;">
-					<div class="card-body">
-						<h5 class="card-title">{{ vehiculo.nombrePersona }}</h5>
-						<p class="card-text">{{ vehiculo.patente }}&nbsp;&nbsp;|&nbsp;&nbsp;{{ vehiculo.tipo }}&nbsp;&nbsp;|&nbsp;&nbsp;{{ vehiculo.estado }}</p>
-						<a href="/patentes/{{ vehiculo.rut }}/" class="btn btn-outline-dark">Ver detalle del vehículo</a>
-					</div>
-				</div>
-				{% endfor %}
-			</div>-->
-		
+		<iframe src="/patentes/reconocimiento/" style="border:none;" height="100%" width="100%"></iframe>
 	</div>
 	{% else %}
 		<p>Para acceder al sistema debes ingresar tu usuario y clave</p>

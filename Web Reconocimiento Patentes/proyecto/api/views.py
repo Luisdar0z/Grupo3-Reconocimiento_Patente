@@ -48,4 +48,3 @@ def login(request):
 	token, _ = Token.objects.get_or_create(user=user)
 	return Response({'token': token.key},
 				   status=HTTP_200_OK)
-	

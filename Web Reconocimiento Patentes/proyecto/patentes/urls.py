@@ -13,7 +13,9 @@ urlpatterns = [
 	url(r'^patentes/(?P<pk>\d+)/delete/$', views.VehiculoDelete.as_view(success_url='/patentes/'), name="vehiculo_delete"),
 	url(r'^patentes/search/$', views.VehiculoSearch.as_view(), name="vehiculo_search"),
 	url(r'^patentes/search/results/$', views.VehiculoSearchView.as_view(), name="vehiculo_search_view"),
-	#url(r'^patentes/reconocimiento/$', views.VehiculoReconocimiento.as_view(), name="vehiculo_reconocimiento"),
+	url(r'^patentes/reconocimiento/$', views.VehiculoReconocimiento.as_view(), name="vehiculo_reconocimiento"),
+	url(r'^patentes/registros/$', views.ReportesForm.as_view(), name="registro_vehiculos"),
+	url(r'^patentes/registros/results$', views.ReportesView.as_view(), name="registro_vehiculos_view"),
 	path('accounts/', include('accounts.urls')),
 	path('accounts/', include('django.contrib.auth.urls'))
 ]

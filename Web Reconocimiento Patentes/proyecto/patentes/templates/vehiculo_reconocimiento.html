@@ -1,29 +1,43 @@
-{% extends 'base.html' %}
+{% load static %}
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>{% block title %}Sistema de Reconocimiento de Patentes{% endblock %}</title>	
+		
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+		<link href="{% static "font-awesome/css/all.css" %}" rel="stylesheet">
+		<link href="{% static "css/patentes.css" %}" rel="stylesheet">
 
-{% block content %}
-	<br/>
-	<div class="row">
-		<div class="column" style="background-color:#aaa;">
-			<h1>Patentes Registradas</h1>
-			<div class="container">
-				<div class="row mt-5 justify-content-center">
-					{% for vehiculo in vehiculos %}
-					<div class="card" style="width: 18rem;">
-						<div class="card-body">
-							<h5 class="card-title">{{ vehiculo.nombrePersona }}</h5>
-							<p class="card-text">{{ vehiculo.patente }}</p>
-							<a href="/patentes/{{ vehiculo.rut }}/" class="btn btn-outline-dark">Ver detalle del vehículo</a>
-						</div>
+	{% block head %}
+	{% endblock %}
+
+	{% block content %}
+	<script language="javascript">
+		setTimeout(function(){
+			window.location.reload(1);
+		}, 30000);
+	</script>
+
+	<div class="container">
+		<div class="row mt-5 justify-content-center">
+		{% for r in registro_vehiculos %}
+		{% if r.visto == 0 %}
+			{% for vehiculo in vehiculos %}
+				<div class="card" style="width: 18rem;">
+					<div class="card-body">
+						<h5 class="card-title">{{ vehiculo.nombrePersona }}</h5>
+						<p class="card-text">{{ vehiculo.patente }}&nbsp;&nbsp;|&nbsp;&nbsp;{{ vehiculo.tipo }}&nbsp;&nbsp;|&nbsp;&nbsp;{{ vehiculo.estado }}</p>
+						<div style="text-align:center"><a href="/patentes/{{ vehiculo.rut }}/" class="btn btn-outline-dark" target="_blank">Ver detalle del vehículo</a>
+						<form action="/patentes/reconocimiento" method="get">
+							<button type="submit" name="visto" class="btn btn-outline btn-info" value=1>Dejar como visto</button></div>
+						</form>
 					</div>
-					{% endfor %}
 				</div>
-				<br/>
-				<div style="text-align:center"><a class="btn btn-lg btn-outline-dark" href="/patentes/search/" role="button" style="text-align: center">Volver a la búsqueda</a></div><br/><br/>
-			</div>
-		</div>
-		<div class="column" style="background-color:#bbb;">
-			<h2>Column 2</h2>
-			<p>Some text..</p>
+			{% endfor %}
+		{% endif %}
+		{% endfor %}
 		</div>
 	</div>
-{% endblock %}
+	{% endblock %}
+</html>
