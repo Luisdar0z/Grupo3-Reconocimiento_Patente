@@ -3,10 +3,27 @@ from django.views.generic import TemplateView
 from .models import Vehiculo, VehiculoFactory
 from api.models import RegistroVehiculos
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 import sqlite3
+
+
+# Verificacion de permisos
+class PermissionRequiredInGroupMixin(PermissionRequiredMixin):
+    def has_permission(self):
+        usuario = self.request.user
+        permisos = self.get_permission_required()
+        privilegios = []
+        
+        for g in usuario.groups.all():
+            for p in g.permissions.all():
+                privilegios.append(p.codename)
+        for r in permisos:
+            if r not in privilegios:
+                return False
+        return True
 
 
 # Funcion para realizar queries de seleccion en la base de datos
@@ -48,12 +65,14 @@ class VehiculoDelete(DeleteView):
 	template_name = './vehiculo_confirm_delete.html'
 	success_url = reverse_lazy('patentes')
 	
-class VehiculoSearch(TemplateView):
+class VehiculoSearch(PermissionRequiredInGroupMixin, TemplateView):
+	permission_required = 'puede_buscar_vehiculos'
 	model = Vehiculo
 	template_name = './vehiculo_search.html'
 	fields = ['nombrePersona', 'patente', 'tipo', 'estacionamiento', 'deptoAsociado', 'estado', 'rut', 'email', 'telefono']
 	
-class VehiculoSearchView(LoginRequiredMixin, TemplateView):
+class VehiculoSearchView(PermissionRequiredInGroupMixin, LoginRequiredMixin, TemplateView):
+	permission_required = 'puede_buscar_vehiculos'
 	def post(self, request, **kwargs):
 		nombrePersona=''
 		patente=''
@@ -117,12 +136,14 @@ class VehiculoReconocimiento(LoginRequiredMixin, TemplateView):
 		
 		return render(request, 'vehiculo_reconocimiento.html', {'vehiculos': vehiculo, 'registro_vehiculos': registro_vehiculo})
 	
-class ReportesForm(TemplateView):
+class ReportesForm(PermissionRequiredInGroupMixin, TemplateView):
+	permission_required = 'puede_buscar_vehiculos'
 	model = RegistroVehiculos
 	template_name = './registrovehiculos_form.html'
 	fields = ['fecha']
 	
-class ReportesView(LoginRequiredMixin, TemplateView):
+class ReportesView(PermissionRequiredInGroupMixin, LoginRequiredMixin, TemplateView):
+	permission_required = 'puede_buscar_vehiculos'
 	def post(self, request, **kwargs):
 		vehiculosResultados = []
 		
