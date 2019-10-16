@@ -48,6 +48,16 @@
 				$("#datepickerTermino").datepicker({dateFormat: "yy-mm-dd"}).val();
 			});
   		</script>
+		
+		<!-- Script Tabla HTML a Archivo Excel -->
+		<script>
+			$("#btnExport").click(function (e) {
+				$(this).attr({
+					'download': "registro_vehiculos.xls",
+					'href': 'data:application/csv;charset=utf-8,' + encodeURIComponent( $('#dvData').html())
+				})
+			});
+		</script>
 		{% endblock %}
 	</body>
 </html>
