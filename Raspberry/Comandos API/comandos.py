@@ -6,9 +6,9 @@ def Agregar(_id, _hora, _day, _month, _year):
     print("imprimiendo desde comandos: ")
     print(_id)
     print(_hora)
-    print(_day)
-    print(_month)
     print(_year)
+    print(_month)
+    print(_day)
 
 
     headers = {
@@ -21,9 +21,9 @@ def Agregar(_id, _hora, _day, _month, _year):
     data = {
         "vehiculo": _id,
         "hora": _hora,
-        "day": _day,
+        "day": _year,
         "month": _month,
-        "year": _year
+        "year": _day
     }
     
     data_convert = json.dumps(data)
