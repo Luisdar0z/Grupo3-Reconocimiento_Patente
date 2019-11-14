@@ -15,16 +15,14 @@
 					</tr>
 				</thead>
 				<tbody>
-				{% for vehiculo in vehiculos|slice:":1" %}
-				{% for registro_vehiculo in registro_vehiculos %}
+					{% for item in reporte %}
 					<tr>
-						<td>{{ vehiculo.nombrePersona }}</td>
-						<td>{{ registro_vehiculo.fecha }}</td>
-						<td>{{ registro_vehiculo.hora }}</td>
+						<td>{{ item.0 }}</td>
+						<td>{{ item.1 }}</td>
+						<td>{{ item.2 }}</td>
 					</tr>
+					{% endfor %}
 				</tbody>
-				{% endfor %}
-				{% endfor %}
 			</table>
 	</div>
 	<div style="text-align:center;">

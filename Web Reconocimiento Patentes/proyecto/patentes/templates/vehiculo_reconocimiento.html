@@ -22,7 +22,20 @@
 	<div class="container">
 		<div class="row mt-5 justify-content-center">
 		{% for r in registro_vehiculos %}
-		{% if r.visto == 0 %}
+		{% if r.registrado == 0 %}
+			<div class="card" style="width: 18rem;">
+				<div class="card-body">
+					<h5 class="card-title">Vehículo no registrado</h5>
+					<div style="text-align:center"><p class="card-text">{{ r.vehiculo }}<br/>Haga click en el botón para agregarlo al registro</p>
+					<form action="/patentes/create/" method="post">
+						<a href="/patentes/create/" type="submit" value="{{r.vehiculo}}" name="patente" class="btn btn-outline-dark" target="_blank">Agregar Vehículo</a>
+					</form>
+					<form action="/patentes/reconocimiento" method="get">
+						<button type="submit" name="visto" class="btn btn-outline btn-info" value=1>Dejar como visto</button></div>
+					</form>
+				</div>
+			</div>
+		{% elif r.visto == 0 %}
 			{% for vehiculo in vehiculos %}
 				<div class="card" style="width: 18rem;">
 					<div class="card-body">

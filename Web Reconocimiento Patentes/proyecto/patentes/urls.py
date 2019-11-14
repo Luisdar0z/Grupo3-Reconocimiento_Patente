@@ -4,6 +4,8 @@ from django.conf.urls import url, re_path
 from django.urls import path, include
 from patentes import views
 
+from .views import AnaliticaDatos_Tiempo, AnaliticaDatos_Cantidad_al_Dia
+
 urlpatterns = [
 	url(r'^$', views.HomePageView.as_view(), name="index"),
 	re_path(r'^patentes/$', views.HomeVehiculosView.as_view(), name="vehiculos"),
@@ -15,7 +17,7 @@ urlpatterns = [
 	url(r'^patentes/search/results/$', views.VehiculoSearchView.as_view(), name="vehiculo_search_view"),
 	url(r'^patentes/reconocimiento/$', views.VehiculoReconocimiento.as_view(), name="vehiculo_reconocimiento"),
 	url(r'^patentes/registros/$', views.ReportesForm.as_view(), name="registro_vehiculos"),
-	url(r'^patentes/registros/results$', views.ReportesView.as_view(), name="registro_vehiculos_view"),
+	url(r'^patentes/registros/results/$', views.ReportesView.as_view(), name="registro_vehiculos_view"),
 	path('accounts/', include('accounts.urls')),
 	path('accounts/', include('django.contrib.auth.urls'))
 ]

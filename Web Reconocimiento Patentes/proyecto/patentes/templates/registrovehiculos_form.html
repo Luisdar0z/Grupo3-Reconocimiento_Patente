@@ -6,7 +6,7 @@
 <h1>Indique rango de fechas de ingresos a buscar</h1>
 <br/>
 <div class="container" style="width: 28rem;">
-	<form action="/patentes/registros/results" method="post">
+	<form action="/patentes/registros/results/" method="post">
 		{% if form.errors %}
     		{% for field in form %}
         		{% for error in field.errors %}
