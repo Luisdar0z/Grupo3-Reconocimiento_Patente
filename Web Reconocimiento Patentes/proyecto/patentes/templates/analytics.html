@@ -1,0 +1,222 @@
+{% extends 'base.html' %}
+
+{% block scripts %}
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.2/dist/Chart.min.js"></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
+
+<!-- Mostrar la fecha de hoy en la pagina -->
+<script type="text/javascript">
+	var months = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+	var dia = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+
+	var date = new Date();
+	var y = date.getFullYear();
+	var m = months[date.getMonth()];
+	var d = dia[date.getDay()];
+	var num = date.getDate();
+
+	document.getElementById('fecha').innerHTML = d + ' ' + num + ' de ' + m + ' de ' + y;
+</script>
+
+<!-- Grafico de torta para tiempo promedio de visitas y servicios -->
+<script type="text/javascript">
+var endpoint = '/api/analitica/datos/tiempopromedio/'
+
+$.ajax({
+	method: "GET",
+	url: endpoint,
+	dataType: 'json',
+	success: function(data){
+		labels = data.labels
+		tiempos = data.tiempo
+		setChart1()
+	},
+	error: function(error_data){
+		console.log("error")
+		console.log(error_data)
+	}
+});
+
+function setChart1(){
+	var ctx = document.getElementById('graficoTiempos').getContext('2d');	
+	var graficoTiempos = new Chart(ctx, {
+		type: 'doughnut',
+		data: {
+			labels: labels,
+			datasets: [{
+				label: 'Tiempo promedio',
+				data: tiempos,
+				backgroundColor: [
+				'rgba(255, 99, 132, 0.5)',
+				'rgba(54, 162, 235, 0.2)',
+				'rgba(255, 206, 86, 0.2)',
+				'rgba(75, 192, 192, 0.2)'
+				],
+				borderColor: [
+				'rgba(255,99,132,1)',
+				'rgba(54, 162, 235, 1)',
+				'rgba(255, 206, 86, 1)',
+				'rgba(75, 192, 192, 1)'
+				],
+				borderWidth: 1
+			}]
+		},
+		options: {
+      		title: {
+        		display: true,
+        		text: 'Tiempo Promedio Visita y Servicios'
+      		}
+		}
+	});
+}
+</script>
+
+<!-- Grafico de barra para tiempo promedio de visitas y servicios -->
+<script type="text/javascript">
+var endpoint = '/api/analitica/datos/cantidad/'
+
+$.ajax({
+	method: "GET",
+	url: endpoint,
+	dataType: 'json',
+	success: function(data){
+		labels = data.labels
+		cantidad = data.cantidad
+		setChart2()
+	},
+	error: function(error_data){
+		console.log("error")
+		console.log(error_data)
+	}
+});
+
+function setChart2(){
+	var ctx2 = document.getElementById('graficoCantidad').getContext('2d');
+	var graficoCantidad = new Chart(ctx2, {
+		type: 'horizontalBar',
+		data: {
+			labels: labels,
+			datasets: [{
+				label: 'Cantidad',
+				data: cantidad,
+				backgroundColor: [
+				'rgba(255, 99, 132, 0.5)',
+				'rgba(54, 162, 235, 0.2)',
+				'rgba(255, 206, 86, 0.2)',
+				'rgba(75, 192, 192, 0.2)'
+				],
+				borderColor: [
+				'rgba(255,99,132,1)',
+				'rgba(54, 162, 235, 1)',
+				'rgba(255, 206, 86, 1)',
+				'rgba(75, 192, 192, 1)'
+				],
+				borderWidth: 1
+			}]
+		},
+		options: {
+      		title: {
+        		display: true,
+        		text: 'Cantidad de Vehículos Visita y Servicios al día de hoy'
+      		}
+		}
+	});
+}
+</script>
+
+<!-- Grafico de barra para horarios de mayor flujo de visitas -->
+<script type="text/javascript">
+var endpoint = '/api/analitica/datos/horarios/'
+
+$.ajax({
+	method: "GET",
+	url: endpoint,
+	dataType: 'json',
+	success: function(data){
+		labels = data.labels
+		cantidad = data.cantidad
+		setChart3()
+	},
+	error: function(error_data){
+		console.log("error")
+		console.log(error_data)
+	}
+});
+
+function setChart3(){
+	var ctx3 = document.getElementById('graficoHorarios').getContext('2d');
+	var graficoCantidad = new Chart(ctx3, {
+		type: 'bar',
+		data: {
+			labels: labels,
+			datasets: [{
+				label: 'Cantidad',
+				data: cantidad,
+				backgroundColor: [
+				'rgba(255, 99, 132, 0.5)',
+				'rgba(54, 162, 235, 0.2)',
+				'rgba(255, 206, 86, 0.2)',
+				'rgba(75, 192, 192, 0.2)'
+				],
+				borderColor: [
+				'rgba(255,99,132,1)',
+				'rgba(54, 162, 235, 1)',
+				'rgba(255, 206, 86, 1)',
+				'rgba(75, 192, 192, 1)'
+				],
+				borderWidth: 1
+			}]
+		},
+		options: {
+      		title: {
+        		display: true,
+        		text: 'Cantidad de Vehículos Visita por hora aprox. durante el último mes'
+      		}
+		}
+	});
+}
+</script>
+{% endblock %}
+
+{% block content %}
+<br/>
+<h1>Dashboard</h1>
+<h2 id="fecha"></h2>
+<br/>
+<div class="container" style="width: 70%">
+	<form action="/patentes/registros/results" method="post">
+		{% if form.errors %}
+    		{% for field in form %}
+        		{% for error in field.errors %}
+            		<div class="alert alert-danger">
+                		<strong>{{ field.name }}: {{ error|escape }}</strong>
+            		</div>
+        		{% endfor %}
+    		{% endfor %}
+    		{% for error in form.non_field_errors %}
+        	<div class="alert alert-danger">
+            	<strong>{{ field.name }}: {{ error|escape }}</strong>
+        	</div>
+    		{% endfor %}
+		{% endif %}
+		
+		{% csrf_token %}
+		<div style="text-align:center;">
+			<canvas id="graficoHorarios" width="400" height="200"></canvas>
+			<br/>
+			<div class="row">
+				<div class="col-sm-6">
+					<canvas id="graficoTiempos" width="400" height="400"></canvas>
+				</div>
+				<div class="col-sm-6">
+					<canvas id="graficoCantidad" width="400" height="400"></canvas>
+				</div>
+			</div>
+			<br/>
+			<a class="btn btn-lg btn-outline-dark" href="/" role="button">Volver al inicio</a>
+		</div>
+		<br/>
+		<br/>
+	</form>
+</div>
+{% endblock %}
