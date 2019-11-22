@@ -281,7 +281,7 @@ def AnaliticaDatos_Tiempo(request, *args, **kwargs):
 # Funcion que construye el set de datos para la analitica de cantidad de visitas y servicios en el dia
 def AnaliticaDatos_Cantidad_al_Dia(request, *args, **kwargs):
 	fecha = time.strftime("%Y-%m-%d")
-	fecha = '2019-09-20'
+	#fecha = '2019-09-20'
 	
 	queryVisitas = "SELECT COUNT(*) FROM (api_registrovehiculos INNER JOIN patentes_vehiculo ON api_registrovehiculos.vehiculo = patentes_vehiculo.id) WHERE patentes_vehiculo.tipo = 'Visita' AND api_registrovehiculos.fecha = '" + fecha + "';"
 	visitas = QueryBD(queryVisitas)
@@ -302,10 +302,19 @@ def AnaliticaDatos_Horarios(request, *args, **kwargs):
 	fecha = time.strftime("%Y-%m-%d")
 	auxFecha = fecha.split("-")
 	
+	#31 días : enero, marzo , mayo, julio ,agosto , octubre y diciembre.
+	#30 días : abril , junio , septiembre y noviembre.
+	
 	fecha_inicio = auxFecha[0] + "-" + auxFecha[1] + "-01"
-	fecha_termino = auxFecha[0] + "-" + auxFecha[1] + "-30"
-	fecha_inicio = '2019-09-01'
-	fecha_termino = '2019-09-30'
+	if (auxFecha[1] == '4') or (auxFecha[1] == '04') or (auxFecha[1] == '6') or (auxFecha[1] == '06') or (auxFecha[1] == '9') or (auxFecha[1] == '09') or (auxFecha[1] == '11'):
+		fecha_termino = auxFecha[0] + "-" + auxFecha[1] + "-30"
+	elif (auxFecha[1] == '2') or (auxFecha[1] == '02'):
+		fecha_termino = auxFecha[0] + "-" + auxFecha[1] + "-28"
+	else:
+		fecha_termino = auxFecha[0] + "-" + auxFecha[1] + "-31"
+
+	#fecha_inicio = '2019-09-01'
+	#fecha_termino = '2019-09-30'
 	
 	labels = []
 	cantidad = []
