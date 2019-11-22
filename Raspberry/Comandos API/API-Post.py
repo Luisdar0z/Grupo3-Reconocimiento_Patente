@@ -51,14 +51,14 @@ def Post_Vehiculo_Reconocido(_id, _registrado):
 	hora = time.strftime("%H:%M")
 	fecha = time.strftime("%Y-%m-%d")
 	
-	#Agregar(idvehiculo, hora, fecha, entrada, salida, visto, registrado)
+	# Agregar(idvehiculo, hora, fecha, entrada, salida, visto, registrado)
 	if (_registrado == 1):
 		if (Entro(_id) == 1):
-			Agregar(_id, hora, fecha, 0, 1, 0, _registrado)
+			Agregar(_id, hora, fecha, 0, 1, 1, _registrado) # Esta saliendo
 		else:
-			Agregar(_id, hora, fecha, 1, 0, 0, _registrado)
+			Agregar(_id, hora, fecha, 1, 0, 0, _registrado) # Esta entrando
 	else:
-		Agregar(_id, hora, fecha, 1, 0, 0, _registrado)
+		Agregar(_id, hora, fecha, 1, 0, 0, _registrado) # No registrado entrando
 
 patente_rec = "ASDF-35"
 id = Recon(patente_rec)
