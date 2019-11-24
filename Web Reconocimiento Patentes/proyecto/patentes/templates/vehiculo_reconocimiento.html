@@ -28,7 +28,7 @@
 					<h5 class="card-title">Vehículo no registrado</h5>
 					<div style="text-align:center"><p class="card-text">{{ r.vehiculo }}<br/>Haga click en el botón para agregarlo al registro</p>
 					<form action="/patentes/create/" method="post">
-						<a href="/patentes/create/" type="submit" value="{{r.vehiculo}}" name="patente" class="btn btn-outline-dark" target="_blank">Agregar Vehículo</a>
+						<button href="/patentes/create/" type="submit" value="{{r.vehiculo}}" name="patente" class="btn btn-outline-dark" target="_blank">Agregar Vehículo</button>
 					</form>
 					<form action="/patentes/reconocimiento" method="get">
 						<button type="submit" name="visto" class="btn btn-outline btn-info" value=1>Dejar como visto</button></div>

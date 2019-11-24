@@ -173,11 +173,11 @@ class VehiculoReconocimiento(LoginRequiredMixin, TemplateView):
 		if (registro[0][4] != 0):
 			query = ("SELECT * FROM patentes_vehiculo WHERE id = " + "\"" + str(registro[0][7]) + "\"")
 			id_vehiculo = QueryBD(query)
+			v = Vehiculo.vehiculos.get(id=id_vehiculo[0][0])
+			vehiculo.append(v)
 			
 			if request.GET.get('visto', False):
 				RegistroVehiculos.objects.filter(pk=registro[0][0]).update(visto='1')
-				v = Vehiculo.vehiculos.get(id=id_vehiculo[0][0])
-				vehiculo.append(v)
 		# Si no esta registrado
 		else:		
 			if request.GET.get('visto', False):
