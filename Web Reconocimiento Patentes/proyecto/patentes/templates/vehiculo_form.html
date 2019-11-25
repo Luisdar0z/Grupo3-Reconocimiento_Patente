@@ -6,21 +6,18 @@
 <br/>
 <div class="container" style="width: 28rem;">
 	<form action="" method="post">
-		{% if form.errors %}
-    		{% for field in form %}
-        		{% for error in field.errors %}
-            		<div class="alert alert-danger">
-                		<strong>{{ field.name }}: {{ error|escape }}</strong>
-            		</div>
-        		{% endfor %}
-    		{% endfor %}
-    		{% for error in form.non_field_errors %}
-        	<div class="alert alert-danger">
-            	<strong>{{ field.name }}: {{ error|escape }}</strong>
-        	</div>
+		<!-- Alerta de errores -->
+		{% if messages %}
+    		{% for message in messages %}
+				<div class="alert alert-danger">
+					<strong>
+        				{{ message|safe }}
+					</strong>
+				</div>
     		{% endfor %}
 		{% endif %}
 		
+		<!-- Formulario -->
 		{% csrf_token %}
 			<table class="table table-borderless">
 				<tr>
@@ -50,7 +47,6 @@
 					<td>
 						<input id="deptoInput" style="width:100%" name="deptoAsociado"></input>
 						<div class="radio" style="text-align:right">
-  							<label class="radio-inline"><input id="radio" type="radio" name="deptoAsociado" value="Visita"> Visita</input></label>&nbsp;&nbsp;
 							<label class="radio-inline"><input id="radio" type="radio" name="deptoAsociado" value="Servicios"> Servicios</input></label>
 						</div>
 					</td>

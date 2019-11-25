@@ -2,6 +2,8 @@ from django.shortcuts import render
 from django.views.generic import TemplateView
 from .models import Vehiculo, VehiculoFactory
 from api.models import RegistroVehiculos
+from django.contrib import messages
+from django.shortcuts import redirect
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
@@ -13,6 +15,7 @@ from django.http import JsonResponse
 import time
 import sqlite3
 from statistics import mean
+from datetime import datetime
 
 
 # Verificacion de permisos
@@ -93,6 +96,79 @@ class VehiculoCreate(CreateView):
 	model = Vehiculo
 	template_name = './vehiculo_form.html'
 	fields = '__all__'
+
+	def post(self, request, **kwargs):
+		super(VehiculoCreate, self).post(request)
+		nombrePersona=''
+		patente=''
+		tipo=''
+		estacionamiento=''
+		deptoAsociado=''
+		rut=''
+
+		if "nombrePersona" in request.POST.keys():
+			nombrePersona = request.POST["nombrePersona"]
+		if "patente" in request.POST.keys():
+			patente = request.POST["patente"]
+		if "tipo" in request.POST.keys():
+			tipo = request.POST["tipo"]
+		if "estacionamiento" in request.POST.keys():
+			estacionamiento = request.POST["estacionamiento"]
+		if "deptoAsociado" in request.POST.keys():
+			deptoAsociado = request.POST["deptoAsociado"]
+		if "rut" in request.POST.keys():
+			rut = request.POST["rut"]
+
+		#Manejo de errores: campos no llenados
+		flag_error = 0
+		i = 0
+		while i < 1:		
+			if (nombrePersona == ''):
+				messages.error(request, 'Nombre Persona no ingresado')
+				flag_error = 1
+			if (patente == ''):
+				messages.error(request, 'Patente no ingresada')
+				flag_error = 1
+			if (estacionamiento == ''):
+				if (tipo != 'Servicios'):
+					messages.error(request, 'Estacionamiento no ingresado')
+					flag_error = 1
+			if (deptoAsociado == ''):
+				if (tipo != 'Servicios'):
+					messages.error(request, 'Departamento Asociado no ingresado')
+					flag_error = 1
+			if (rut == ''):
+				messages.error(request, 'RUT no ingresado')
+				flag_error = 1
+
+			if flag_error == 1:
+				return redirect("/patentes/create/")
+
+			i = i + 1
+
+		#Manejo de errores: excepciones
+		flag_error = 0
+		i = 0
+		while i < 1:
+			if len(rut) < 8:
+				messages.error(request, 'Formato de RUT incorrecto')
+				flag_error = 1
+			if len(rut) > 9:
+				messages.error(request, 'Formato de RUT incorrecto')
+				flag_error = 1
+			if ('.' in rut) or ('-' in rut):
+				messages.error(request, 'Ingrese RUT sin puntos ni guión')
+				flag_error = 1
+			if (len(patente) < 7) or (len(patente) > 7):
+				messages.error(request, 'Formato de Patente incorrecta. Patente debe tener 7 dígitos exactos incluyendo el guión')
+				flag_error = 1
+
+			if flag_error == 1:
+				return redirect("/patentes/create/")
+
+			i = i + 1
+
+		return redirect('/patentes/')
 	
 class VehiculoUpdate(UpdateView):
 	model = Vehiculo
@@ -173,11 +249,11 @@ class VehiculoReconocimiento(LoginRequiredMixin, TemplateView):
 		if (registro[0][4] != 0):
 			query = ("SELECT * FROM patentes_vehiculo WHERE id = " + "\"" + str(registro[0][7]) + "\"")
 			id_vehiculo = QueryBD(query)
+			v = Vehiculo.vehiculos.get(id=id_vehiculo[0][0])
+			vehiculo.append(v)
 			
 			if request.GET.get('visto', False):
 				RegistroVehiculos.objects.filter(pk=registro[0][0]).update(visto='1')
-				v = Vehiculo.vehiculos.get(id=id_vehiculo[0][0])
-				vehiculo.append(v)
 		# Si no esta registrado
 		else:		
 			if request.GET.get('visto', False):
@@ -207,9 +283,32 @@ class ReportesView(PermissionRequiredInGroupMixin, LoginRequiredMixin, TemplateV
 			fechaInicio = request.POST["fechaInicio"]
 		if "fechaTermino" in request.POST.keys():
 			fechaTermino = request.POST["fechaTermino"]
+			
+		if (fechaInicio != '') and (fechaTermino != ''):
+			auxFechaInicio = datetime.strptime(fechaInicio, '%Y-%m-%d').date()
+			auxFechaTermino = datetime.strptime(fechaTermino, '%Y-%m-%d').date()
+			
+			if (auxFechaInicio > auxFechaTermino):
+				messages.error(request, 'La fecha inicial tiene que ser menor a la fecha de término')
+				return redirect("/patentes/registros/")
+		else:	
+			if (fechaInicio == '') and (fechaTermino == ''):
+				messages.error(request, 'No se ha ingresado fecha de inicio y término')
+				return redirect("/patentes/registros/")
+			if (fechaInicio == ''):
+				messages.error(request, 'No se ha ingresado fecha de inicio')
+				return redirect("/patentes/registros/")
+			if (fechaTermino == ''):
+				messages.error(request, 'No se ha ingresado fecha de término')
+				return redirect("/patentes/registros/")
 		
 		query = "SELECT * FROM api_registrovehiculos WHERE fecha >= '" + fechaInicio + "' and fecha <= '" + fechaTermino + "'"
 		resultados = RegistroVehiculos.objects.raw(query)
+		
+		# Si no existen registros
+		if is_empty(resultados) is True:
+			messages.error(request, 'No se ha registrado ningún ingreso al condominio entre la fecha inicial de término')
+			return redirect("/patentes/registros/")
 
 		for r in resultados:
 			if (r.entrada == 1):
