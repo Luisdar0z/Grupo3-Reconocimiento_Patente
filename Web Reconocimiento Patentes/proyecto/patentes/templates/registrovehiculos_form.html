@@ -7,21 +7,18 @@
 <br/>
 <div class="container" style="width: 28rem;">
 	<form action="/patentes/registros/results/" method="post">
-		{% if form.errors %}
-    		{% for field in form %}
-        		{% for error in field.errors %}
-            		<div class="alert alert-danger">
-                		<strong>{{ field.name }}: {{ error|escape }}</strong>
-            		</div>
-        		{% endfor %}
-    		{% endfor %}
-    		{% for error in form.non_field_errors %}
-        	<div class="alert alert-danger">
-            	<strong>{{ field.name }}: {{ error|escape }}</strong>
-        	</div>
+		<!-- Alerta de errores -->
+		{% if messages %}
+    		{% for message in messages %}
+				<div class="alert alert-danger">
+					<strong>
+						{{ message|safe }}
+					</strong>
+				</div>
     		{% endfor %}
 		{% endif %}
 		
+		<!-- Formulario -->
 		{% csrf_token %}
 			<table class="table table-borderless">
 				<tr>
@@ -35,7 +32,7 @@
 			</table>
 		<div style="text-align:center;">
 			<a class="btn btn-lg btn-outline-dark" href="/" role="button">Volver al inicio</a>
-			<button type="submit" class="btn btn-lg btn-info">Ver Registros</button>
+			<button type="submit" name="registros" class="btn btn-lg btn-info">Ver Registros</button>
 		</div>
 		<br/>
 		<br/>
