@@ -96,15 +96,16 @@ class VehiculoCreate(CreateView):
 	model = Vehiculo
 	template_name = './vehiculo_form.html'
 	fields = '__all__'
-	
-	def post(self, request, *args, **kwargs):		
+
+	def post(self, request, **kwargs):
+		super(VehiculoCreate, self).post(request)
 		nombrePersona=''
 		patente=''
 		tipo=''
 		estacionamiento=''
 		deptoAsociado=''
 		rut=''
-		
+
 		if "nombrePersona" in request.POST.keys():
 			nombrePersona = request.POST["nombrePersona"]
 		if "patente" in request.POST.keys():
@@ -139,12 +140,12 @@ class VehiculoCreate(CreateView):
 			if (rut == ''):
 				messages.error(request, 'RUT no ingresado')
 				flag_error = 1
-			
+
 			if flag_error == 1:
 				return redirect("/patentes/create/")
-			
+
 			i = i + 1
-		
+
 		#Manejo de errores: excepciones
 		flag_error = 0
 		i = 0
@@ -158,15 +159,16 @@ class VehiculoCreate(CreateView):
 			if ('.' in rut) or ('-' in rut):
 				messages.error(request, 'Ingrese RUT sin puntos ni guión')
 				flag_error = 1
-				return redirect("/patentes/create/")
 			if (len(patente) < 7) or (len(patente) > 7):
 				messages.error(request, 'Formato de Patente incorrecta. Patente debe tener 7 dígitos exactos incluyendo el guión')
 				flag_error = 1
-			
+
 			if flag_error == 1:
 				return redirect("/patentes/create/")
-			
+
 			i = i + 1
+
+		return redirect('/patentes/')
 	
 class VehiculoUpdate(UpdateView):
 	model = Vehiculo
