@@ -4,7 +4,7 @@
 <ul>
 	<li>Crear entorno virtual en un directorio que contenga la carpeta proyecto y activarlo</li>
 	<li>En consola/terminal ubicarse en carpeta Web Reconocimiento Patentes</li>
-	<li>Para instalar/verificar las librerías necesarias ejecutar (con el entorno virtual activado)</li>
+	<li>Para instalar/verificar las librerías necesarias ejecutar (con el entorno virtual activado y ubicado en carpeta Web Reconocimiento Patentes)</li>
 	<ul>
 		<li>pip3 install -r requirements.txt</li>
 	</ul>
