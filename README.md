@@ -22,3 +22,19 @@ Link trello: <a href= "https://trello.com/b/RZev8yz1" target="_blank">trello.com
 	</ul>
 	<li>Automatización del comando curl para registro en API (en carpeta Raspberry/Comandos API/)</li>
 </ul>
+
+<h3>Entrega 2 (Software II)</h3>
+<ul>
+	<li>Vista de alerta de ingreso de vehículo (en Web Reconocimiento Patentes/proyecto/patentes/views.py)</li>
+	<li>Vista de generación de reportes de ingreso (en Web Reconocimiento Patentes/proyecto/patentes/views.py)</li>
+	<ul>
+		<li>Guardar tabla desplagada en formato Excel (.xlsx) (en Web Reconocimiento Patentes/proyecto/patentes/templates/base.html)</li>
+	</ul>
+	<li>Definición y asignación de permisos de usuario (en Web Reconocimiento Patentes/proyecto/patentes/views.py)</li>
+</ul>
+
+<h3>Entrega 3 (Software II)</h3>
+<ul>
+	<li>Análitica a partir de registros de ingresos por medio de Chart.js (en Web Reconocimiento Patentes/proyecto/patentes/views.py y en Web Reconocimiento Patentes/proyecto/patentes/templates/analytics.html)</li>
+	<li>Manejo de errores en inputs (en Web Reconocimiento Patentes/proyecto/patentes/views.py)</li>
+</ul>
