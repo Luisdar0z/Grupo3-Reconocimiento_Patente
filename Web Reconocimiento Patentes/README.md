@@ -1,15 +1,5 @@
 # WebReconocimientoPatentes
 
-<h3>Entrega 1:</h3>
-<ul>
-	<li>Login y registro</li>
-	<li>Mostrar patentes registradas y detalle</li>
-	<li>Agregar nuevo vehículo</li>
-	<li>Modificar vehículo</li>
-	<li>Eliminar vehículo</li>
-	<li>Buscar vehículo</li>
-</ul>
-
 <h2>Ejecución:</h2>
 <ul>
 	<li>Crear entorno virtual en un directorio que contenga la carpeta proyecto y activarlo</li>
@@ -31,7 +21,7 @@
 	</ul>
 	<li>Realizar login con los siguientes datos:</li>
 	<ul>
-		<li>Nombre de usuario: conserje</li>
+		<li>Nombre de usuario: administrador</li>
 		<li>Contraseña: asd123asd123</li>
 	</ul>
 	<li>Si el usuario no está registrado (no ingresa al hacer login) crear uno nuevo en botón Registrar</li>
